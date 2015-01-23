@@ -12,11 +12,13 @@ var gamejs = require('gramework').gamejs,
 var PIXEL_SCALE = 2;
 
 // Maybe these values do something important
-var MONKEY_SPEED = 3;
-var MONKEY_JUMP = 5;
+var MONKEY_SPEED = 30;
+var MONKEY_JUMP = 15;
 var MONKEY_GRAVITY = 1;
 
 var pickup_sound = new Audio(conf.Sounds.blip);
+var win_sound = new Audio(conf.Sounds.fanfare);
+var lose_sound = new Audio(conf.Sounds.lose);
 
 
 var Display = Entity.extend({
@@ -224,11 +226,16 @@ var Game = exports.Game = function () {
 };
 
 Game.prototype.lose = function() {
+    lose_sound.play();
     this.initialize();
 };
 
 Game.prototype.win = function() {
-
+    if (!this.isWin){
+        this.scene.pushEntity(this.win_screen);
+        win_sound.play();
+        this.isWin = true;
+    }
 };
  
 Game.prototype.initialize = function() {
@@ -256,7 +263,7 @@ Game.prototype.initialize = function() {
     this.scoreIcon = gamejs.transform.scale(this.scoreIcon, [66, 103]);
     this.scoreText = this.font.render(this.scene.score, "#ff0000");
 
-    var monkey = new Monkey({
+    this.monkey = new Monkey({
         x:20,
         y:180,
         width:80,
@@ -375,23 +382,23 @@ Game.prototype.initialize = function() {
     this.scene.pushEntity(platform5);
     this.scene.pushEntity(platform6);
     this.scene.pushEntity(platform7);
-    this.scene.pushEntity(this.win_screen);
     //this.scene.pushThing(emitter);
+
+    var game = this;
 
     this.controlMapDown = {
         left: function () {
-            monkey.moveLeft();
+            game.monkey.moveLeft();
         },
         up: function () {
-            monkey.jump();
+            game.monkey.jump();
         },
         right: function () {
-            monkey.moveRight();
+            game.monkey.moveRight();
         },
         down: function () {
         },
         action: function() {
-            game.lose();
         },
         mousePos: function(pos) {
         },
@@ -404,15 +411,15 @@ Game.prototype.initialize = function() {
 
     this.controlMapUp = {
         left: function() {
-            monkey.stop();
+            game.monkey.stop();
         },
 
         right: function() {
-            monkey.stop();
+            game.monkey.stop();
         },
 
         up: function() {
-            monkey.canJump = true;
+            game.monkey.canJump = true;
         }
     }
 
@@ -451,6 +458,11 @@ Game.prototype.update = function(dt) {
     if (this.scene.score == 4) {
         this.win();
     }
+
+    if (this.monkey.rect.top > 300) {
+        this.lose();
+    }
+
 
     this.scene.update(dt);
     this.scoreText = this.font.render('x ' + this.scene.score, "#ff0000");

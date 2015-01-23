@@ -4,11 +4,13 @@ var Images = exports.Images = {
     particle: './assets/particle.png',
     banana: './assets/banana.png',
     banana_icon: './assets/banana_icon.png',
-    win_screen: './assets/winscreen.png'
+    win_screen: './assets/winscreen.png',
+    lose: './assets/error.ogg'
 };
 
 var Sounds = exports.Sounds = {
-    blip: './assets/e_pickup.ogg'
+    blip: './assets/e_pickup.ogg',
+    fanfare: './assets/victory.ogg'
 };
 
 var globals = exports.globals = {
