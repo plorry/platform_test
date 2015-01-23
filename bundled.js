@@ -6,7 +6,8 @@ var Images = exports.Images = {
     banana: './assets/banana.png',
     banana_icon: './assets/banana_icon.png',
     win_screen: './assets/winscreen.png',
-    lose: './assets/error.ogg'
+    lose: './assets/error.ogg',
+    grass: './assets/grass.png'
 };
 
 var Sounds = exports.Sounds = {
@@ -225,6 +226,7 @@ var Collectible = Entity.extend({
 var Platform = Entity.extend({
     initialize: function(options) {
         this.type = 'platform';
+        this.image = gamejs.image.load(conf.Images.grass);
     },
 
     draw: function(display) {

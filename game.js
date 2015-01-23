@@ -205,6 +205,7 @@ var Collectible = Entity.extend({
 var Platform = Entity.extend({
     initialize: function(options) {
         this.type = 'platform';
+        this.image = gamejs.image.load(conf.Images.grass);
     },
 
     draw: function(display) {

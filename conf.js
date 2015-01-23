@@ -5,7 +5,8 @@ var Images = exports.Images = {
     banana: './assets/banana.png',
     banana_icon: './assets/banana_icon.png',
     win_screen: './assets/winscreen.png',
-    lose: './assets/error.ogg'
+    lose: './assets/error.ogg',
+    grass: './assets/grass.png'
 };
 
 var Sounds = exports.Sounds = {
