@@ -3,7 +3,8 @@ var Images = exports.Images = {
     monkey: './assets/monkey.png',
     particle: './assets/particle.png',
     banana: './assets/banana.png',
-    banana_icon: './assets/banana_icon.png'
+    banana_icon: './assets/banana_icon.png',
+    win_screen: './assets/winscreen.png'
 };
 
 var Sounds = exports.Sounds = {

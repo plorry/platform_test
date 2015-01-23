@@ -4,7 +4,8 @@ var Images = exports.Images = {
     monkey: './assets/monkey.png',
     particle: './assets/particle.png',
     banana: './assets/banana.png',
-    banana_icon: './assets/banana_icon.png'
+    banana_icon: './assets/banana_icon.png',
+    win_screen: './assets/winscreen.png'
 };
 
 var Sounds = exports.Sounds = {
@@ -34,6 +35,11 @@ var MONKEY_JUMP = 5;
 var MONKEY_GRAVITY = 1;
 
 var pickup_sound = new Audio(conf.Sounds.blip);
+
+
+var Display = Entity.extend({
+    
+});
 
 // Container for the entire game.
 var Monkey = Entity.extend({

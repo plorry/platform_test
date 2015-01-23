@@ -18,6 +18,11 @@ var MONKEY_GRAVITY = 1;
 
 var pickup_sound = new Audio(conf.Sounds.blip);
 
+
+var Display = Entity.extend({
+    
+});
+
 // Container for the entire game.
 var Monkey = Entity.extend({
     initialize: function(options) {
