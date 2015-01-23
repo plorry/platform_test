@@ -1,5 +1,5 @@
 
-Vegan Menu
+Monkey Quest
 =========
 
-WIP game: simulation of ordering vegan food at a non-vegan restaurant
+Get them bananas
