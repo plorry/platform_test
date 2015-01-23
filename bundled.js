@@ -38,7 +38,31 @@ var pickup_sound = new Audio(conf.Sounds.blip);
 
 
 var Display = Entity.extend({
-    
+    initialize: function(options) {
+        this.image = gamejs.image.load(options.image);
+        this.maxY = options.maxY || 100;
+        this.accel = 1;
+        this.speed = 0;
+        this.stop = false;
+    },
+
+    update: function(dt) {
+        if (!this.stop){
+            this.speed += this.accel;
+        }
+
+        if (this.rect.top > this.maxY) {
+            this.speed = -this.speed / 1.5;
+
+            if (Math.abs(this.speed) < 1) {
+                this.speed = 0;
+                this.stop = true;
+            }
+
+        }
+
+        this.move(0, this.speed);
+    }
 });
 
 // Container for the entire game.
@@ -227,6 +251,15 @@ Game.prototype.win = function() {
  
 Game.prototype.initialize = function() {
     var game = this;
+    this.isWin = false;
+
+    this.win_screen = new Display({
+        width: 150,
+        heigt: 120,
+        x: 160,
+        y: 0,
+        image: conf.Images.win_screen
+    })
 
     this.scene = new Scene({
         width:450,
@@ -360,6 +393,7 @@ Game.prototype.initialize = function() {
     this.scene.pushEntity(platform5);
     this.scene.pushEntity(platform6);
     this.scene.pushEntity(platform7);
+    this.scene.pushEntity(this.win_screen);
     //this.scene.pushThing(emitter);
 
     this.controlMapDown = {
@@ -431,6 +465,11 @@ Game.prototype.event = function(ev) {
 
 Game.prototype.update = function(dt) {
     if (dt > 1000 / 3) dt = 1000 / 3;
+
+    if (this.scene.score == 4) {
+        this.win();
+    }
+
     this.scene.update(dt);
     this.scoreText = this.font.render('x ' + this.scene.score, "#ff0000");
 };
